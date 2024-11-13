@@ -37,7 +37,7 @@ jobs:
         uses: softprops/action-gh-release@v2
         with:
           generate_release_notes: true
-          token: ${{ secrets.GITHUB_TOKEN }}
+          token: ${{ secrets.ADMIN_TOKEN }}
           files: |
             ${{env.BUILD_PATH_ROOT}}/${{env.EXPORT_NAME}}-${{env.WIN_BUILD_NAME}}.zip
             ${{env.BUILD_PATH_ROOT}}/${{env.EXPORT_NAME}}-${{env.LINUX_BUILD_NAME}}.zip

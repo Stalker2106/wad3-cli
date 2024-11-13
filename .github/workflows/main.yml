@@ -39,6 +39,6 @@ jobs:
           generate_release_notes: true
           token: ${{ secrets.ADMIN_TOKEN }}
           files: |
-            ${{env.BUILD_PATH_ROOT}}/${{env.EXPORT_NAME}}-${{env.WIN_BUILD_NAME}}.zip
-            ${{env.BUILD_PATH_ROOT}}/${{env.EXPORT_NAME}}-${{env.LINUX_BUILD_NAME}}.zip
-            ${{env.BUILD_PATH_ROOT}}/${{env.EXPORT_NAME}}-${{env.MACOS_BUILD_NAME}}.zip
+            ${{env.BUILD_PATH_ROOT}}/${{env.EXPORT_NAME}}-${{env.WIN_BUILD_NAME}}
+            ${{env.BUILD_PATH_ROOT}}/${{env.EXPORT_NAME}}-${{env.LINUX_BUILD_NAME}}
+            ${{env.BUILD_PATH_ROOT}}/${{env.EXPORT_NAME}}-${{env.MACOS_BUILD_NAME}}

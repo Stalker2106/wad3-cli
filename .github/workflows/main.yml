@@ -14,6 +14,7 @@ env:
 jobs:
   export-game:
     name: All Platform Export
+    runs-on: ubuntu-20.04
     container:
       image: mcr.microsoft.com/dotnet/sdk:8.0
     steps:

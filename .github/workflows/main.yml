@@ -1,0 +1,44 @@
+name: "wad3-cli export"
+on:
+  push:
+    tags:
+      - "v*.*.*"
+
+env:
+  EXPORT_NAME: wad3-cli
+  BUILD_PATH_ROOT: /tmp/build
+  WIN_BUILD_NAME: win_x86-64
+  LINUX_BUILD_NAME: linux_x86-64
+  MACOS_BUILD_NAME: macOS_x86-64
+
+jobs:
+  export-game:
+    name: All Platform Export
+    runs-on: ubuntu-20.04
+    container:
+      image: bitnami/dotnet:8-debian-12
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      # Windows build
+      - name: Windows Build
+        run: |
+        dotnet publish -r win-x64 -p:PublishSingleFile=True --self-contained false --output $BUILD_PATH_ROOT/$EXPORT_NAME-$WIN_BUILD_NAME
+      # Linux build
+      - name: Linux Build
+        run: |
+        dotnet publish -r linux-x64 -p:PublishSingleFile=True --self-contained false --output $BUILD_PATH_ROOT/$EXPORT_NAME-$LINUX_BUILD_NAME
+      # MacOS build
+      - name: MacOS Build
+        run: |
+        dotnet publish -r osx-x64 -p:PublishSingleFile=True --self-contained false --output $BUILD_PATH_ROOT/$EXPORT_NAME-$MACOS_BUILD_NAME
+      # Release to this repo
+      - name: Private Release
+        uses: softprops/action-gh-release@v2
+        with:
+          generate_release_notes: true
+          token: ${{ secrets.GITHUB_TOKEN }}
+          files: |
+            ${{env.BUILD_PATH_ROOT}}/${{env.EXPORT_NAME}}-${{env.WIN_BUILD_NAME}}.zip
+            ${{env.BUILD_PATH_ROOT}}/${{env.EXPORT_NAME}}-${{env.LINUX_BUILD_NAME}}.zip
+            ${{env.BUILD_PATH_ROOT}}/${{env.EXPORT_NAME}}-${{env.MACOS_BUILD_NAME}}.zip

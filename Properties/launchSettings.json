@@ -2,7 +2,7 @@
   "profiles": {
     "wad3-cli": {
       "commandName": "Project",
-      "commandLineArgs": "test.wad ./tests",
+      "commandLineArgs": "extract test.wad out/",
       "workingDirectory": "D:\\Projects\\wad3-cli"
     }
   }

@@ -23,15 +23,15 @@ jobs:
       # Windows build
       - name: Windows Build
         run: |
-        dotnet publish -r win-x64 -p:PublishSingleFile=True --self-contained false --output $BUILD_PATH_ROOT/$EXPORT_NAME-$WIN_BUILD_NAME
+          dotnet publish -r win-x64 -p:PublishSingleFile=True --self-contained false --output $BUILD_PATH_ROOT/$EXPORT_NAME-$WIN_BUILD_NAME
       # Linux build
       - name: Linux Build
         run: |
-        dotnet publish -r linux-x64 -p:PublishSingleFile=True --self-contained false --output $BUILD_PATH_ROOT/$EXPORT_NAME-$LINUX_BUILD_NAME
+          dotnet publish -r linux-x64 -p:PublishSingleFile=True --self-contained false --output $BUILD_PATH_ROOT/$EXPORT_NAME-$LINUX_BUILD_NAME
       # MacOS build
       - name: MacOS Build
         run: |
-        dotnet publish -r osx-x64 -p:PublishSingleFile=True --self-contained false --output $BUILD_PATH_ROOT/$EXPORT_NAME-$MACOS_BUILD_NAME
+          dotnet publish -r osx-x64 -p:PublishSingleFile=True --self-contained false --output $BUILD_PATH_ROOT/$EXPORT_NAME-$MACOS_BUILD_NAME
       # Release to this repo
       - name: Private Release
         uses: softprops/action-gh-release@v2

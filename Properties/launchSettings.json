@@ -2,7 +2,7 @@
   "profiles": {
     "wad3-cli": {
       "commandName": "Project",
-      "commandLineArgs": "test.wad D:/ORS_Tex/ac2",
+      "commandLineArgs": "test.wad ./tests",
       "workingDirectory": "D:\\Projects\\wad3-cli"
     }
   }

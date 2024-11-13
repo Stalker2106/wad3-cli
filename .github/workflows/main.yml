@@ -24,7 +24,7 @@ jobs:
       - name: Windows Build
         run: |
           dotnet publish -r win-x64 -p:PublishSingleFile=True --self-contained false --output $BUILD_PATH_ROOT/
-          mv $BUILD_PATH_ROOT/$EXPORT_NAME $BUILD_PATH_ROOT/$EXPORT_NAME-$WIN_BUILD_NAME
+          mv $BUILD_PATH_ROOT/$EXPORT_NAME.exe $BUILD_PATH_ROOT/$EXPORT_NAME-$WIN_BUILD_NAME.exe
       # Linux build
       - name: Linux Build
         run: |
@@ -42,6 +42,6 @@ jobs:
           generate_release_notes: true
           token: ${{ secrets.ADMIN_TOKEN }}
           files: |
-            ${{env.BUILD_PATH_ROOT}}/${{env.EXPORT_NAME}}-${{env.WIN_BUILD_NAME}}
+            ${{env.BUILD_PATH_ROOT}}/${{env.EXPORT_NAME}}-${{env.WIN_BUILD_NAME}}.exe
             ${{env.BUILD_PATH_ROOT}}/${{env.EXPORT_NAME}}-${{env.LINUX_BUILD_NAME}}
             ${{env.BUILD_PATH_ROOT}}/${{env.EXPORT_NAME}}-${{env.MACOS_BUILD_NAME}}

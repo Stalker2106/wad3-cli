@@ -23,17 +23,17 @@ jobs:
       # Windows build
       - name: Windows Build
         run: |
-          dotnet publish -r win-x64 -p:PublishSingleFile=True --self-contained false --output $BUILD_PATH_ROOT/
+          dotnet publish -r win-x64 -p:PublishSingleFile=True --self-contained --output $BUILD_PATH_ROOT/
           mv $BUILD_PATH_ROOT/$EXPORT_NAME.exe $BUILD_PATH_ROOT/$EXPORT_NAME-$WIN_BUILD_NAME.exe
       # Linux build
       - name: Linux Build
         run: |
-          dotnet publish -r linux-x64 -p:PublishSingleFile=True --self-contained false --output $BUILD_PATH_ROOT/
+          dotnet publish -r linux-x64 -p:PublishSingleFile=True --self-contained --output $BUILD_PATH_ROOT/
           mv $BUILD_PATH_ROOT/$EXPORT_NAME $BUILD_PATH_ROOT/$EXPORT_NAME-$LINUX_BUILD_NAME
       # MacOS build
       - name: MacOS Build
         run: |
-          dotnet publish -r osx-x64 -p:PublishSingleFile=True --self-contained false --output $BUILD_PATH_ROOT/
+          dotnet publish -r osx-x64 -p:PublishSingleFile=True --self-contained --output $BUILD_PATH_ROOT/
           mv $BUILD_PATH_ROOT/$EXPORT_NAME $BUILD_PATH_ROOT/$EXPORT_NAME-$MACOS_BUILD_NAME
       # Release to this repo
       - name: Private Release

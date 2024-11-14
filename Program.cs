@@ -33,6 +33,17 @@ namespace wad3_cli
                 string[] bitmapsPath = Directory.GetFiles(sourceFolder, "*.*", searchOptions).ToArray()
                                                 .Where(file => new string[] { ".bmp", ".jpg", ".gif", ".png" }
                                                 .Contains(Path.GetExtension(file))).ToArray();
+                if (bitmapsPath.Length <= 0)
+                {
+                    Console.WriteLine("No textures found in source folder.");
+                    return;
+                }
+                if (!outputWAD.EndsWith(".wad"))
+                {
+                    Console.WriteLine("Output does not point to a valid .wad file.");
+                    return;
+                }
+                Console.WriteLine($"Found {bitmapsPath.Length} textures to bundle");
                 if (Bundle(bitmapsPath, outputWAD))
                 {
                     Console.WriteLine($"WAD successfully generated at {outputWAD}");
@@ -48,6 +59,11 @@ namespace wad3_cli
 
             extractCommand.SetHandler((string inputWAD, string destFolder) =>
             {
+                if (!File.Exists(inputWAD))
+                {
+                    Console.WriteLine("Input WAD file does not exist.");
+                    return;
+                }
                 if (!Directory.Exists(destFolder)) Directory.CreateDirectory(destFolder);
                 if (Extract(inputWAD, destFolder))
                 {
@@ -111,6 +127,7 @@ namespace wad3_cli
             using (FileStream rfs = File.OpenRead(inputWAD))
             {
                 WadFile wad = new WadFile(rfs);
+                Console.WriteLine($"Found {wad.Entries.Count} entries in WAD");
                 // Parse Textures
                 foreach (Entry entry in wad.Entries)
                 {

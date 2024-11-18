@@ -6,6 +6,8 @@
     <RootNamespace>wad3_cli</RootNamespace>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
+    <PublishSingleFile>true</PublishSingleFile> 
+    <IncludeNativeLibrariesForSelfExtract>true</IncludeNativeLibrariesForSelfExtract> 
   </PropertyGroup>
 
   <ItemGroup>

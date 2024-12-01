@@ -77,12 +77,21 @@ namespace wad3_cli
 
         static bool Bundle(string[] bitmapsPath, string outputWAD)
         {
+            List<string> processedTextures = new List<string>();
             // Create wad
             WadFile wad = new WadFile(Sledge.Formats.Texture.Wad.Version.Wad3);
             foreach (var imagePath in bitmapsPath)
             {
-                string textureName = Path.GetFileNameWithoutExtension(imagePath);
-                if (textureName.Length > 16) textureName = textureName.Substring(0, 16);
+                string textureName = Path.GetFileNameWithoutExtension(imagePath).ToLower();
+                if (textureName.Length > 16) {
+                    string shortTexName = textureName.Substring(0, 16);
+                    Console.WriteLine($"WARNING: Texture {textureName} is longer than 16 chars, truncating to {shortTexName}");
+                    textureName = shortTexName;
+                }
+                if (processedTextures.Contains(textureName)) {
+                    Console.WriteLine($"ERROR: Texture {textureName} is duplicated in source, aborting...");
+                    return false;
+                }
                 MipTextureLump mipTexLump = new MipTextureLump();
                 ColorPalette palette = new ColorPalette(256);
                 mipTexLump.Name = textureName;
@@ -90,6 +99,11 @@ namespace wad3_cli
                 mipTexLump.MipData = new byte[mipTexLump.NumMips][];
                 // Set properties
                 SKBitmap bitmap = SKBitmap.Decode(imagePath);
+                if (bitmap.Width / 16 != 0.0f || bitmap.Height / 16 != 0.0f)
+                {
+                    Console.WriteLine($"ERROR: Texture {textureName} size is not a multiple of 16, aborting...");
+                    return false;
+                }
                 mipTexLump.Width = (uint)bitmap.Width;
                 mipTexLump.Height = (uint)bitmap.Height;
                 // Quantize image (erode image to 256 colors)

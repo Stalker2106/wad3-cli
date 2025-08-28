@@ -1,4 +1,4 @@
-﻿using Sledge.Formats.Texture.Wad;
+using Sledge.Formats.Texture.Wad;
 using Sledge.Formats.Texture.Wad.Lumps;
 using System.CommandLine;
 using SkiaSharp;
@@ -99,9 +99,9 @@ namespace wad3_cli
                 mipTexLump.MipData = new byte[mipTexLump.NumMips][];
                 // Set properties
                 SKBitmap bitmap = SKBitmap.Decode(imagePath);
-                if (bitmap.Width / 16 != 0.0f || bitmap.Height / 16 != 0.0f)
+                if (bitmap.Width % 16 != 0 || bitmap.Height % 16 != 0)
                 {
-                    Console.WriteLine($"ERROR: Texture {textureName} size is not a multiple of 16, aborting...");
+                    Console.WriteLine($"ERROR: Texture {textureName} size is not a multiple of 16 ({bitmap.Width}x{bitmap.Height}), aborting...");
                     return false;
                 }
                 mipTexLump.Width = (uint)bitmap.Width;
